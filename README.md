@@ -31,3 +31,5 @@ To run the notebook environment, run this `jupyter notebook` in the same termina
 [I 2023-11-18 11:42:05.851 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
 
 ``` 
+
+For more in-depth features regarding the jupyter notebook, this link would give a more detail instruction (https://docs.jupyter.org/en/latest/running.html)
