@@ -1,3 +1,9 @@
 .venv
 .vscode
 .idea
+openai/
+**/output/*
+**/source/*
+**/.ipynb_checkpoints
+
+.DS_Store
