@@ -5,5 +5,5 @@ openai/
 **/output/*
 **/source/*
 **/.ipynb_checkpoints
-
+**/training/model
 .DS_Store

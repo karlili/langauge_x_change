@@ -21,7 +21,11 @@ torch_dtype=torch.float32
 model_id = "openai/whisper-large-v3"
 
 model = AutoModelForSpeechSeq2Seq.from_pretrained(
-    model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True
+    model_id, 
+    torch_dtype=torch_dtype, 
+    low_cpu_mem_usage=True,
+     use_safetensors=True,
+    # cache_dir="/Volumes/BACKUP/Coding/HUGGING_FACE/models"
 )
 model.to(device)
 
@@ -32,7 +36,7 @@ pipe = pipeline(
     model=model,
     tokenizer=processor.tokenizer,
     feature_extractor=processor.feature_extractor,
-    max_new_tokens=128,
+    max_new_tokens=1000,
     chunk_length_s=30,
     batch_size=16,
     return_timestamps=True,
@@ -43,12 +47,12 @@ pipe = pipeline(
 
 
 # this is the place you modify your input - the name of the mp3 file you want to run
-result = pipe("../../source/sample.mp3")
+result = pipe("source/Audio1.mp3")
 
 # then it will write the response in a json file named as the current date time
 now = datetime.datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
 json_object = json.dumps(result, indent=4)
-with open(now+".json", "w") as f:
+with open('output/'+now+".json", "w") as f:
     f.write(json_object)
 
 # also it will print out the result in the following output block
