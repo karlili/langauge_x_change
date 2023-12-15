@@ -18,8 +18,8 @@ device ="cpu"
 # torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
 torch_dtype=torch.float32
 
-path = "model/whisper-small-cantanese"
-model_id = "openai/whisper-large-v3"
+path = "model/whisper-small-cantanese/checkpoint-4000"
+processor_path = "model/whisper-small-cantanese"
 
 model = AutoModelForSpeechSeq2Seq.from_pretrained(
    path, 
@@ -27,7 +27,7 @@ model = AutoModelForSpeechSeq2Seq.from_pretrained(
 )
 model.to(device)
 
-processor = AutoProcessor.from_pretrained(model_id)
+processor = AutoProcessor.from_pretrained(processor_path)
 
 pipe = pipeline(
     "automatic-speech-recognition",
@@ -40,12 +40,12 @@ pipe = pipeline(
     return_timestamps=True,
     torch_dtype=torch_dtype,
     device=device,
-    generate_kwargs={"language": "cantonese"}
 )
 
+pipe.tokenizer.get_decoder_prompt_ids(language='cantonese', task="transcribe")
 
 # this is the place you modify your input - the name of the mp3 file you want to run
-result = pipe("source/sample.mp3")
+result = pipe("source/trimmed_sample.mp3")
 
 # then it will write the response in a json file named as the current date time
 now = datetime.datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
