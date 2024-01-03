@@ -9,9 +9,9 @@
     "ghcr.io/devcontainers-contrib/features/tmux-apt-get:1": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/conda:1": {},
-	"ghcr.io/devcontainers-contrib/features/black:2": {},
-	"ghcr.io/devcontainers-contrib/features/ffmpeg-apt-get:1": {}
+    // "ghcr.io/devcontainers/features/conda:1": {},
+    "ghcr.io/devcontainers-contrib/features/black:2": {},
+    "ghcr.io/devcontainers-contrib/features/ffmpeg-apt-get:1": {}
   },
   "customizations": {
     "vscode": {
@@ -22,10 +22,14 @@
         "ms-toolsai.jupyter-keymap",
         "ms-toolsai.jupyter-hub",
         "GitHub.github-vscode-theme",
-        "GitHub.remotehub"
+        "GitHub.remotehub",
+        "ms-toolsai.datawrangler"
       ]
     }
-  }
+  },
+  "mounts": [
+    //this binds the local ssh keys into the devcontainer
+  ]
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
