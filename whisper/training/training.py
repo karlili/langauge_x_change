@@ -6,6 +6,41 @@
 # before downloading any new dataset, 
 # make sure to check if it needs to Check and Agrees to the terms first, otherwise the download would fail
 
+import wandb
+import datetime
+# from accelerate import Accelerator
+
+now = datetime.datetime.now().strftime("%d-%m-%Y-%H%M")
+
+config = {
+    "model_name": "whisper-small-cantonese_"+now,
+    
+    "per_device_train_batch_size":16,
+    "gradient_accumulation_steps":1,  # increase by 2x for every 2x decrease in batch size
+    "learning_rate":2e-1,
+    "warmup_steps":500,
+    "max_steps":1000,
+    "gradient_checkpointing":True,
+    "evaluation_strategy":"steps",
+    "per_device_eval_batch_size":16,
+    "predict_with_generate":True,
+    "generation_max_length":225,
+    "save_steps":100,
+    "eval_steps":100,
+    "logging_steps":25,
+    "metric_for_best_model":"wer",
+    "num_train_epochs":5,
+    "hidden_layer_sizes": [32, 64],
+    "kernel_sizes": [3],
+    "activation": "ReLU",
+    "pool_sizes": [2],
+    "dropout": 0.5,
+    "num_classes": 10,
+}
+
+wandb.init(project="language-x-change", config=config)
+
+
 from datasets import load_dataset, DatasetDict
 
 dataset_name = "mozilla-foundation/common_voice_16_0"
@@ -133,7 +168,7 @@ def compute_metrics(pred):
     label_str = tokenizer.batch_decode(label_ids, skip_special_tokens=True)
 
     wer = 100 * metric.compute(predictions=pred_str, references=label_str)
-
+    wandb.log({"wer": wer})
     return {"wer": wer}
 
 
@@ -148,36 +183,29 @@ model.config.forced_decoder_ids = None
 model.config.suppress_tokens = []
 
 
-import wandb
-
-wandb.init(project="language-x-change")
 
 
 from transformers import Seq2SeqTrainingArguments
-import datetime
-# from accelerate import Accelerator
-
-now = datetime.datetime.now().strftime("%d-%m-%Y-%H%M")
 
 training_args = Seq2SeqTrainingArguments(
-    output_dir="model/whisper-small-cantonese_"+now,  # change to a repo name of your choice
-    per_device_train_batch_size=16,
-    gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
-    learning_rate=2e-5,
-    warmup_steps=500,
-    max_steps=1000,
-    gradient_checkpointing=True,
+    output_dir=wandb.config["model_name"],  # change to a repo name of your choice
+    per_device_train_batch_size=wandb.config["per_device_train_batch_size"],
+    gradient_accumulation_steps=wandb.config["gradient_accumulation_steps"],  # increase by 2x for every 2x decrease in batch size
+    learning_rate=wandb.config["learning_rate"],
+    warmup_steps=wandb.config["warmup_steps"],
+    max_steps=wandb.config["max_steps"],
+    gradient_checkpointing=wandb.config["gradient_checkpointing"],
     fp16=False,  # if we are not using CUDA or non graphics card, use fp16=false
-    evaluation_strategy="steps",
-    per_device_eval_batch_size=16,
-    predict_with_generate=True,
-    generation_max_length=225,
-    save_steps=100,
-    eval_steps=100,
-    logging_steps=25,
+    evaluation_strategy=wandb.config["evaluation_strategy"],
+    per_device_eval_batch_size=wandb.config["per_device_eval_batch_size"],
+    generation_max_length=wandb.config["generation_max_length"],
+    save_steps=wandb.config["save_steps"],
+    eval_steps=wandb.config["eval_steps"],
+    logging_steps=wandb.config[""],
     report_to=["tensorboard","wandb"], #this would requires the tensorboardx to be installed
     load_best_model_at_end=True,
-    metric_for_best_model="wer",
+    metric_for_best_model=wandb.config["metric_for_best_model"],
+    num_train_epochs=wandb.config["num_train_epochs"],
     greater_is_better=False,
     push_to_hub=False,
 )
@@ -196,8 +224,6 @@ trainer = Seq2SeqTrainer(
 )
 
 processor.save_pretrained(training_args.output_dir)
-
-
 trainer.train()
 
 wandb.finish()
