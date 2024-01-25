@@ -11,8 +11,7 @@ services:
     tty: true
 
     volumes:
-      - "./:/app"
-      - "/app/venv"
+      - './:/app'
 
     environment:
       WANDB_API_KEY: "xxxxx""

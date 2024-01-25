@@ -10,7 +10,6 @@ services:
 
     volumes:
       - './:/app'
-      # - "model:/app/model"
 
     ports:
       - '8000:8000'
