@@ -9,11 +9,11 @@ services:
     restart: always
 
     volumes:
-      - "./:/app"
-      - "model:/app/model"
+      - './:/app'
+      # - "model:/app/model"
 
     ports:
-      - "8000:8000"
+      - '8000:8000'
 
     command: >
       sh -c "uvicorn main:app --reload --host 0.0.0.0"
