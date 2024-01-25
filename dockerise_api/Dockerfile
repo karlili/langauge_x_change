@@ -1,7 +1,7 @@
 FROM python:3.9.18-bullseye
 
 RUN apt update && apt upgrade -y
-RUN apt install ffmpeg -y
+RUN apt install tmux vim htop ffmpeg -y
 
 WORKDIR /app
 
