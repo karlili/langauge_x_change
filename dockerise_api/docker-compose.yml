@@ -10,7 +10,7 @@ services:
 
     volumes:
       - "./:/app"
-      - "../whisper/training/model:/app/model"
+      - "model:/app/model"
 
     ports:
       - "8000:8000"

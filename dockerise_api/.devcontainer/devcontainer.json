@@ -29,7 +29,7 @@
   },
   "mounts": [
     //this binds the local ssh keys into the devcontainer
-    
+    "source=${localEnv:HOME}/Downloads/model,target=/workspaces/langauge_x_change/dockerise_api/model/,type=bind,consistency=cached"  
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.

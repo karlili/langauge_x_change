@@ -9,8 +9,8 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    print("something changed 1")
-    return {"Hello": "World"}
+    # print("something changed 1")
+    return {"status": "Running.... Welcome language-x-change"}
 
 """ 
 todo:
