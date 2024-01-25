@@ -12,10 +12,8 @@ services:
 
     volumes:
       - "./:/app"
+      - "/app/venv"
 
     environment:
       WANDB_API_KEY: "xxxxx""
       HUGGING_FACE_HUB_TOKEN: "yyyyyy"
-
-    ports:
-      - "8000:8000"

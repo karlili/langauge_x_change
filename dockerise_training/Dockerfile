@@ -13,8 +13,8 @@ WORKDIR /app
 COPY . .
 
 #Creating a virtual environment and installing dependencies
-RUN python -m venv ./venv
-RUN . venv/bin/activate
+# RUN python -m venv ./venv
+# RUN source /app/venv/bin/activate
 
 
 #Install the python dependencies
