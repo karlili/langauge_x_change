@@ -9,74 +9,27 @@ this docker image helps to encapsulate the complexity in the training process, b
 - Verify if the installation is good by opening up the Terminal (from MacOS), then type `docker`, you should see the following coming up if the installation is good
 
 
-- build the docker image to use as the environment
+Get ready your W&B authorized token and the huggingface token, then open up docker-compose.yml file.
+
+ - To get the W&B token, go to https://wandb.ai/authorize, and copy the token from there
+ - To get the huggingface token, go to https://huggingface.co/settings/token, and copy the token from there
+
+Under environment, paste in the WANDB_API_KEY & HUGGING_FACE_HUB_TOKEN to the file respectivity
 
 ```
-docker build -t language-x-change-training:0.1 .
-
-```
-
-- to start the environment, run the following command
-
-```
-docker run -it --rm language-x-change-training:0.1 /bin/bash
-```
-
-- Logging to weights&biases (w&b) with the command line
-
-```
-wandb login
-```
-
-and you will be prompted to get the API key from the the given website, open the website and copy the key into the terminal
-
-```
-root@50d254b77e2b:/app# wandb login
-wandb: Logging into wandb.ai. (Learn how to deploy a W&B server locally: https://wandb.me/wandb-server)
-wandb: You can find your API key in your browser here: https://wandb.ai/authorize
-wandb: Paste an API key from your profile and hit enter, or press ctrl+c to quit: 
-
-...
-...
-wandb: Appending key for api.wandb.ai to your netrc file: /root/.netrc
-
-root@50d254b77e2b:/app# 
-
+    environment:
+      WANDB_API_KEY: "xxxxxxx"
+      HUGGING_FACE_HUB_TOKEN: "yyyyyy"
 
 ```
 
-
-
-- Logging to Hugging face with the command line
-
-run the following command, and pasting in the personal token you created from hugging face.
+Once the tokens are set, execute the following command instead, which will give the same environment
 ```
-huggingface-cli login
-
-root@50d254b77e2b:/app# huggingface-cli login
-
-    _|    _|  _|    _|    _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|_|_|_|    _|_|      _|_|_|  _|_|_|_|
-    _|    _|  _|    _|  _|        _|          _|    _|_|    _|  _|            _|        _|    _|  _|        _|
-    _|_|_|_|  _|    _|  _|  _|_|  _|  _|_|    _|    _|  _|  _|  _|  _|_|      _|_|_|    _|_|_|_|  _|        _|_|_|
-    _|    _|  _|    _|  _|    _|  _|    _|    _|    _|    _|_|  _|    _|      _|        _|    _|  _|        _|
-    _|    _|    _|_|      _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|        _|    _|    _|_|_|  _|_|_|_|
-
-    To login, `huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
-Token: 
-
-...
-...
-
-Token has not been saved to git credential helper.
-Your token has been saved to /root/.cache/huggingface/token
-Login successful
-
-
+docker compose run training
 ```
 
 
-
-- to run the training
+- to run a single training experiment
 
 ```
 python training.py

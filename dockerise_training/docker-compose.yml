@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  training:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+
+    restart: always
+    stdin_open: true
+    tty: true
+
+    volumes:
+      - "./:/app"
+
+    environment:
+      WANDB_API_KEY: "xxxxx""
+      HUGGING_FACE_HUB_TOKEN: "yyyyyy"
+
+    ports:
+      - "8000:8000"
