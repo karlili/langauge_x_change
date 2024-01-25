@@ -182,7 +182,7 @@ model.config.suppress_tokens = []
 from transformers import Seq2SeqTrainingArguments
 
 training_args = Seq2SeqTrainingArguments(
-    output_dir=wandb.config["model_name"],  # change to a repo name of your choice
+    output_dir='model/'+wandb.config["model_name"],  # change to a repo name of your choice
     per_device_train_batch_size=wandb.config["per_device_train_batch_size"],
     gradient_accumulation_steps=wandb.config["gradient_accumulation_steps"],
     # increase by 2x for every 2x decrease in batch size
