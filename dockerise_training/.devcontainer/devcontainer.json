@@ -9,7 +9,7 @@
     "ghcr.io/devcontainers-contrib/features/tmux-apt-get:1": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    
+
     "ghcr.io/devcontainers-contrib/features/black:2": {},
     "ghcr.io/devcontainers-contrib/features/ffmpeg-apt-get:1": {}
   },
@@ -29,7 +29,7 @@
   },
   "mounts": [
     //this binds the local ssh keys into the devcontainer
-    "source=${localEnv:HOME}/Downloads/model,target=/workspaces/langauge_x_change/dockerise_training/model/${localEnv:USER}/.ssh,type=bind,consistency=cached" 
+    "source=${localEnv:HOME}/Downloads/model,target=/workspaces/langauge_x_change/dockerise_training/model,type=bind,consistency=cached"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
