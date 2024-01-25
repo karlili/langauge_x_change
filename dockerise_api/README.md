@@ -1,3 +1,5 @@
+language-x-change Transcribe Restful API
+
 This subproject is aimed to provide a way to access the transcription model via a RESRful API
 
 # Prerequisite 
@@ -102,11 +104,32 @@ For more help on how to use Docker, head to https://docs.docker.com/go/guides/
 
 # Start up
 
-Assuming your current folder is `packaging`, run this command `docker compose up`. The whole setup process should be automated and do not require any intervention.
+Assuming your current folder is `dockerise_api`, run this command `docker compose up`.
+
+The whole setup process should be automated and do not require any intervention.
 
 You would see something like this when the process is running fine.
 
 ```
-
+vscode ➜ /workspaces/langauge_x_change/dockerise_api (develop) $ docker compose up
+[+] Building 6.6s (4/13)                                                              docker:default
+ => [api internal] load build definition from Dockerfile                                        0.3s
+ ...
+ ...
+ ...
+ 
+[+] Running 2/2
+ ✔ Network dockerise_api_default  Created                                                       0.3s 
+ ✔ Container dockerise_api-api-1  Created                                                       1.1s 
+Attaching to api-1
+api-1  | INFO:     Will watch for changes in these directories: ['/app']
+api-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+api-1  | INFO:     Started reloader process [7] using WatchFiles
+api-1  | INFO:     Started server process [9]
+api-1  | INFO:     Waiting for application startup.
+api-1  | INFO:     Application startup complete. 
+ 
+ 
 ```
 
+When you see the last message shown 'Application startup complete.' Then you can head to the browser and navigate to http://127.0.0.1:8000/docs and you can see all the available endpoints. For the time being, we have `/uploads`
