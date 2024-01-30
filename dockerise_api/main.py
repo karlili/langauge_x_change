@@ -24,6 +24,7 @@ https://stackoverflow.com/questions/63048825/how-to-upload-file-using-fastapi
 
 from fastapi import File, UploadFile
 from transcription.transcribe import transcribe
+from difflib import SequenceMatcher, Differ
 
 @app.post("/upload")
 def upload(file: UploadFile = File(...)):
@@ -37,12 +38,26 @@ def upload(file: UploadFile = File(...)):
         file.file.close()
 
 
+    # just keep it simple and use whisper model for now
     result = transcribe(
-    #  './model/whisper-small-cantonese_23-12-2023-2157/checkpoint-400',
-    #  './model/whisper-small-cantonese_23-12-2023-2157',
     "openai/whisper-large-v3",
     "openai/whisper-large-v3",
     '/app/upload/'+file.filename)
 
     return {"message": f"Successfully uploaded and processed {file.filename}",
     "result": f"{result}"}
+
+
+@app.post('/compare')
+def diff(input, expected):
+    s = SequenceMatcher(None, input, expected)
+    d = Differ()
+    match_ratio = s.ratio()
+    difference = d.compare(input, expected)
+    return {
+        # "message": f"Successfully compared {string1} and {string2}",
+        "input": f"{input}",
+        "expected": f"{expected}",
+        "match_ratio": f"{match_ratio}",
+        "difference": difference
+        }
