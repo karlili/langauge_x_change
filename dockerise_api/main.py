@@ -26,8 +26,8 @@ from fastapi import File, UploadFile
 from transcription.transcribe import transcribe
 from difflib import SequenceMatcher, Differ
 
-@app.post("/upload")
-def upload(file: UploadFile = File(...)):
+@app.post("/transcribe")
+def transcribe(file: UploadFile = File(...)):
     try:
         contents = file.file.read()
         with open('/app/upload/'+file.filename, 'wb') as f:
