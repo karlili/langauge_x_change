@@ -10,9 +10,13 @@ services:
 
     volumes:
       - './:/app'
+      - '/app/upload'
 
     ports:
       - '8000:8000'
+
+    environment:
+      HUGGING_FACE_HUB_TOKEN: <INSERT YOUR TOKEN HERE>
 
     command: >
       sh -c "uvicorn main:app --reload --host 0.0.0.0"

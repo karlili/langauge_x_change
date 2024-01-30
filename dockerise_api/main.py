@@ -38,15 +38,11 @@ def upload(file: UploadFile = File(...)):
 
 
     result = transcribe(
-     './model/whisper-small-cantonese_23-12-2023-2157/checkpoint-400',
-     './model/whisper-small-cantonese_23-12-2023-2157',
-    # "openai/whisper-large-v3",
-    # "openai/whisper-large-v3",
+    #  './model/whisper-small-cantonese_23-12-2023-2157/checkpoint-400',
+    #  './model/whisper-small-cantonese_23-12-2023-2157',
+    "openai/whisper-large-v3",
+    "openai/whisper-large-v3",
     '/app/upload/'+file.filename)
-
-    
-    #Remove the uploaded file afterwards
-    
 
     return {"message": f"Successfully uploaded and processed {file.filename}",
     "result": f"{result}"}
