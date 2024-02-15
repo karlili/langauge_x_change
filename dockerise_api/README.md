@@ -133,3 +133,18 @@ api-1  | INFO:     Application startup complete.
 ```
 
 When you see the last message shown 'Application startup complete.' Then you can head to the browser and navigate to http://127.0.0.1:8000/docs and you can see all the available endpoints. For the time being, we have `/uploads`
+
+
+# Multiple Instances
+
+If your machine has enough resources, you can run multiple instances of the API with docker compose
+
+Assuming your current folder is `dockerise_api`, run this command `docker compose up --scale language-x-change-api=<NUM_OF_INSTANCE>`.
+
+If the `NUM_OF_INSTANCE` is 3, it will run 3 instances of the API. you can double check with the command `docker ps -a`, and it will give you something like this.
+```
+a5c2b2fe4769   dockerise_api-language-x-change-api    "/bin/sh -c 'pip ins…"   4 minutes ago   Up 4 minutes                   0.0.0.0:60235->8000/tcp          dockerise_api-language-x-change-api-3
+eb2adf15b916   dockerise_api-language-x-change-api    "/bin/sh -c 'pip ins…"   4 minutes ago   Up 4 minutes                   0.0.0.0:60236->8000/tcp          dockerise_api-language-x-change-api-2
+a41c49fccaf9   dockerise_api-language-x-change-api    "/bin/sh -c 'pip ins…"   9 minutes ago   Up 4 minutes                   0.0.0.0:60238->8000/tcp          dockerise_api-language-x-change-api-1
+
+```
