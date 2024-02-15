@@ -1,7 +1,7 @@
 from typing import Union
 
 from fastapi import FastAPI
-
+from fastapi.responses import StreamingResponse
 
 
 app = FastAPI()
@@ -27,7 +27,7 @@ from transcription.transcribe import transcribe
 from difflib import SequenceMatcher, Differ
 
 @app.post("/transcribe")
-def transcribe(file: UploadFile = File(...)):
+def upload_audio(file: UploadFile = File(...)):
     try:
         contents = file.file.read()
         with open('/app/upload/'+file.filename, 'wb') as f:
@@ -39,13 +39,13 @@ def transcribe(file: UploadFile = File(...)):
 
 
     # just keep it simple and use whisper model for now
-    result = transcribe(
-    "openai/whisper-large-v3",
-    "openai/whisper-large-v3",
-    '/app/upload/'+file.filename)
+    result = transcribe( "openai/whisper-large-v3", "openai/whisper-large-v3",'/app/upload/'+file.filename)
 
-    return {"message": f"Successfully uploaded and processed {file.filename}",
-    "result": f"{result}"}
+    return {
+        # "message": f"Successfully processed {file.filename}",
+        "fileName": file.filename,
+        "transcription": f"{result}"
+        }
 
 
 @app.post('/compare')
@@ -55,7 +55,6 @@ def diff(input, expected):
     match_ratio = s.ratio()
     difference = d.compare(input, expected)
     return {
-        # "message": f"Successfully compared {string1} and {string2}",
         "input": f"{input}",
         "expected": f"{expected}",
         "match_ratio": f"{match_ratio}",

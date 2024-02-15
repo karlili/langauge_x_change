@@ -22,7 +22,9 @@ RUN mkdir /app/upload
 
 #Install the python dependencies
 # RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+ENTRYPOINT pip install -r requirements.txt && uvicorn main:app --reload --host 0.0.0.0
 
-CMD uvicorn main:app --reload --host 0.0.0.0
+# CMD source ./venv/bin/activate
+# CMD uvicorn main:app --reload --host 0.0.0.0
+
 EXPOSE 8000
