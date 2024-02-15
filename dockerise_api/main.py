@@ -44,7 +44,7 @@ def upload_audio(file: UploadFile = File(...)):
     return {
         # "message": f"Successfully processed {file.filename}",
         "fileName": file.filename,
-        "transcription": f"{result}"
+        "transcription": f"{result['text']}"
         }
 
 
