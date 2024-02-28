@@ -54,9 +54,35 @@ def diff(input, expected):
     d = Differ()
     match_ratio = s.ratio()
     difference = d.compare(input, expected)
+
+    print( f"{difference}" )
+    character_by_character_diff = []
+
+    for index, char in enumerate(difference):
+        
+        if "-" in char:
+            # print(f"Item '{char}' contains a hyphen.")
+
+            key = char.replace("-", "").strip()
+            if key in expected:
+                character_by_character_diff.append( {  "expected_char": key, "contains": False})
+
+        elif "+" in char:
+            key = char.replace("+", "").strip()
+            if key in expected:
+                character_by_character_diff.append( { "expected_char": key, "contains": False})
+        
+        else:
+            # print(f"Item '{char}' does not contain a hyphen.")
+            key = char.strip()
+            character_by_character_diff.append( {  "expected_char": key, "contains":  True })
+
+
     return {
         "input": f"{input}",
         "expected": f"{expected}",
         "match_ratio": f"{match_ratio}",
-        "difference": difference
+        "char_by_char_diff": character_by_character_diff,
+        # "difference": difference,
+        
         }
