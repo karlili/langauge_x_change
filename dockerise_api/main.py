@@ -21,7 +21,7 @@ consider this resource
 https://stackoverflow.com/questions/63048825/how-to-upload-file-using-fastapi
 
 """
-
+import os
 from fastapi import File, UploadFile
 from transcription.transcribe import transcribe
 from difflib import SequenceMatcher, Differ
@@ -39,7 +39,17 @@ def upload_audio(file: UploadFile = File(...)):
 
 
     # just keep it simple and use whisper model for now
-    result = transcribe( "openai/whisper-large-v3", "openai/whisper-large-v3",'/app/upload/'+file.filename)
+    result = transcribe(
+        "openai/whisper-large-v3",
+        "openai/whisper-large-v3",
+        '/app/upload/'+file.filename)
+
+    # remove the file when processing is done
+    try:
+        os.remove('/app/upload/'+file.filename)
+        print(f"File /app/upload/'{file.filename}' has been deleted.")
+    except FileNotFoundError:
+        print(f"Error: File /app/upload/'{file.filename}' not found.")
 
     return {
         # "message": f"Successfully processed {file.filename}",
