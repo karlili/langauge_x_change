@@ -55,7 +55,7 @@ def diff(input, expected):
     match_ratio = s.ratio()
     difference = d.compare(input, expected)
 
-    print( f"{difference}" )
+    # print( f"{difference}" )
     character_by_character_diff = []
 
     for index, char in enumerate(difference):
