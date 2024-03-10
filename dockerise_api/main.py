@@ -4,12 +4,11 @@ from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 
 
-app = FastAPI()
+app = FastAPI(docs_url=None)
 
 
-@app.get("/")
+@app.get("/status")
 def read_root():
-    # print("something changed 1")
     return {"status": "Running.... Welcome language-x-change"}
 
 """ 
