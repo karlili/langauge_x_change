@@ -13,7 +13,7 @@ ENV HUGGING_FACE_HUB_TOKEN=''
 # COPY requirements.txt .
 COPY . .
 RUN mkdir /app/upload
-
+RUN pip install --upgrade pip
 
 #Creating a virtual environment and installing dependencies
 # RUN python -m venv ./venv
@@ -22,7 +22,7 @@ RUN mkdir /app/upload
 
 #Install the python dependencies
 # RUN pip install --upgrade pip
-ENTRYPOINT pip install -r requirements.txt && uvicorn main:app --reload --host 0.0.0.0
+ENTRYPOINT pip install -r requirements_m1.txt && uvicorn main:app --reload --host 0.0.0.0
 
 # CMD source ./venv/bin/activate
 # CMD uvicorn main:app --reload --host 0.0.0.0
