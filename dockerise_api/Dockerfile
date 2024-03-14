@@ -11,8 +11,9 @@ ENV HUGGING_FACE_HUB_TOKEN=''
 
 # COPY model ./model
 # COPY requirements.txt .
-COPY . .
+COPY ./app .
 RUN mkdir /app/upload
+RUN pip install --upgrade pip
 
 
 #Creating a virtual environment and installing dependencies
